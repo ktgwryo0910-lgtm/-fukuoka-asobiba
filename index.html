@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>福岡市 子供の遊び場所検索</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #faf8f5;
+    --card-bg: #ffffff;
+    --text: #2b2b2b;
+    --sub: #6b6b6b;
+    --accent: #e8734a;
+    --accent-soft: #fdece4;
+    --border: #e5e0d8;
+    --badge-visited: #2f8f5b;
+    --badge-visited-bg: #e4f5ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1a18;
+      --card-bg: #26241f;
+      --text: #f1ede6;
+      --sub: #b3ada2;
+      --accent: #ff9068;
+      --accent-soft: #3a2a22;
+      --border: #3a362f;
+      --badge-visited: #7bd9a0;
+      --badge-visited-bg: #1f3a2b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  header {
+    padding: 24px 20px 12px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 1.5rem;
+    margin: 0 0 4px;
+  }
+  header p {
+    color: var(--sub);
+    margin: 0;
+    font-size: 0.92rem;
+  }
+  .filters {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 16px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .filters select, .filters label {
+    font-size: 0.9rem;
+  }
+  .filters select {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text);
+  }
+  .filters label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--sub);
+    cursor: pointer;
+  }
+  .count {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    color: var(--sub);
+    font-size: 0.85rem;
+  }
+  .grid {
+    max-width: 1000px;
+    margin: 12px auto 40px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .card h2 {
+    font-size: 1.02rem;
+    margin: 0 0 6px;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .tag {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .tag.visited {
+    background: var(--badge-visited-bg);
+    color: var(--badge-visited);
+    font-weight: bold;
+  }
+  dl {
+    margin: 0;
+    font-size: 0.85rem;
+  }
+  dl div {
+    display: flex;
+    gap: 8px;
+    padding: 4px 0;
+    border-top: 1px solid var(--border);
+  }
+  dl div:first-child { border-top: none; }
+  dt {
+    flex: 0 0 88px;
+    color: var(--sub);
+  }
+  dd {
+    margin: 0;
+    flex: 1;
+  }
+  .memo {
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: var(--sub);
+  }
+  footer {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    color: var(--sub);
+    font-size: 0.78rem;
+  }
+  .empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--sub);
+    padding: 40px 0;
+  }
+  .ad-slot {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .ad-slot .ad-box {
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    color: var(--sub);
+    font-size: 0.78rem;
+  }
+  .aff-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.78rem;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 3px 10px;
+  }
+  .aff-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>福岡市 子供の遊び場所検索</h1>
+  <p>未就学児(3〜6歳)の親向け。福岡市7区の遊び場を条件で絞り込めます。(プロトタイプ・データ収集中)</p>
+</header>
+
+<div class="filters">
+  <select id="f-ward">
+    <option value="">区: すべて</option>
+  </select>
+  <select id="f-type">
+    <option value="">屋内外: すべて</option>
+    <option value="屋内">屋内</option>
+    <option value="屋外">屋外</option>
+  </select>
+  <label><input type="checkbox" id="f-free"> 無料のみ</label>
+  <label><input type="checkbox" id="f-visited"> オーナー実地取材済みのみ</label>
+</div>
+
+<!-- 広告枠: Googleアドセンス審査通過後、ここに広告コードを設置する -->
+<div class="ad-slot"><div class="ad-box">広告枠(Googleアドセンス設定後に表示)</div></div>
+
+<div class="count" id="count"></div>
+<div class="grid" id="grid"></div>
+
+<!-- 広告枠: 記事下にも1枠 -->
+<div class="ad-slot"><div class="ad-box">広告枠(Googleアドセンス設定後に表示)</div></div>
+
+<footer>
+  データ出典: 福岡市公式サイト・各種まとめサイト・オーナー実地取材。料金や休館日は変更される場合があるため、来訪前に最新情報をご確認ください。
+</footer>
+
+<script>
+const spots = [
+  {ward:"東区", name:"香椎子どもプラザ(くすくす)", address:"セピアテラス西鉄香椎2階", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"専用駐車場なし・周辺コインパーキング利用(最安24時間300円程度)", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"開館時間10-16時、休館日は月曜・第3日曜・年末年始", items:"抱っこひも"},
+  {ward:"東区", name:"三苫子どもプラザ", address:"東区三苫5-1-40(エムザス1階)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"商業施設(エムザス)の駐車場を利用できる可能性あり(要確認)", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"休館日は毎週水曜・毎月第2日曜・年末年始(12/29-1/3)、開館時間は要確認", items:"ベビーカー 軽量"},
+  {ward:"東区", name:"東浜子どもプラザ", address:"ゆめタウン博多2階", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"ゆめタウン博多の共用駐車場を利用可", crowd:"要確認", source:"公式(福岡市)", visited:false, memo:"開館時間10-16時、休館日は毎週木曜・毎月第3金曜・年末年始(12/29-1/3)", items:"子供 着替えセット"},
+  {ward:"東区", name:"海の中道海浜公園(シー・ドラグーン)", address:"海の中道海浜公園内", type:"屋外", rain:false, age:"全年齢", fee:"入園料は中程度(体感)", parking:"あり(広いが満車になりやすく駐車場から園内まで遠い)", crowd:"昼前後は常に混雑気味", source:"自分取材", visited:true, memo:"国内最大級のアスレチックタワー。遊具・動物園・凧揚げ(海風が強く好条件)など子供が遊び回るには最適", items:"子供用 凧"},
+  {ward:"東区", name:"アイランドシティ中央公園(ぐりんぐりん)", address:"アイランドシティ内", type:"屋外", rain:false, age:"全年齢", fee:"公園は無料・ぐりんぐりん入館料は大人100円/小人50円/3歳以下無料", parking:"238台無料", crowd:"土日祝", source:"口コミ", visited:false, memo:"大規模複合遊具あり。ぐりんぐりん営業時間9-17時(火・祝翌日、年末年始休)", items:"子供用 日焼け止め"},
+  {ward:"博多区", name:"山王子どもプラザ", address:"博多区山王1-13-10(博多市民センター内)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"共用駐車場約80台(土日祝・イベント時は混雑)", crowd:"土日祝", source:"公式(福岡市)", visited:false, memo:"利用時間10-16時、休館日は日曜・毎月最終月曜(祝日は翌平日)・年末年始", items:"抱っこひも"},
+  {ward:"博多区", name:"キッザニア福岡", address:"博多区那珂6-23-1(ららぽーと福岡内)", type:"屋内", rain:true, age:"3歳〜15歳", fee:"例:平日6時間チケット大人2300円/小学生3800円(家族4人で12000〜13000円程度、プラン多数・要公式最新確認)", parking:"ららぽーと福岡駐車場、利用時間分(最大6時間)無料", crowd:"土日祝・長期休み", source:"口コミ", visited:false, memo:"職業体験型、事前予約推奨", items:"キッズ用 財布"},
+  {ward:"博多区", name:"福岡アンパンマンこどもミュージアム", address:"博多区内", type:"屋内", rain:true, age:"未就学児", fee:"有料(体感高め。大人2人子供2人で入場料だけで1万円近く。風船等の館内販売も千円超)", parking:"なし", crowd:"土日祝・長期休み", source:"自分取材", visited:true, memo:"子供の食いつきは非常に良いが、入場料以外に飲食・おもちゃ・ゲームで追加課金が発生しやすい。キャラクターパンがおすすめ", items:"アンパンマン グッズ"},
+  {ward:"博多区", name:"福岡おもちゃ美術館", address:"博多区那珂6-23-1(ららぽーと福岡 オーバルパーク内)", type:"屋内", rain:true, age:"未就学児", fee:"大人1600円(税込)・ギフトセット4600円(税込)", parking:"ららぽーと福岡駐車場(周辺コインパーキングは最安400円/日〜)", crowd:"土日祝", source:"口コミ", visited:false, memo:"営業時間10:00-18:00", items:"木製 知育玩具"},
+  {ward:"中央区", name:"中央区子どもプラザ「のびのび」", address:"中央区今泉1-19-22(天神CLASS 6階)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"専用駐車場なし・近隣有料駐車場を利用", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"開設時間・休館日の詳細は要問合せ(092-741-3564)", items:"抱っこひも"},
+  {ward:"中央区", name:"福岡市科学館(おやこひろば)", address:"中央区六本松", type:"屋内", rain:true, age:"未就学児", fee:"安め", parking:"なし", crowd:"情報なし(未確認。土日祝・長期休みは混みやすい傾向)", source:"自分取材", visited:true, memo:"サイエンスショー・プラネタリウムが楽しめる。館内涼しく夏場おすすめ。飲食店少なく1階のパン屋程度", items:"水筒 子供用"},
+  {ward:"中央区", name:"BOSS E・ZO FUKUOKA", address:"PayPayドーム隣接", type:"屋内", rain:true, age:"未就学児には不向き(全年齢施設だがアトラクション中心)", fee:"アトラクション個別課金制(例:V-World 4-12歳2時間1700-1800円、すべZO1000円等。未就学児が対象年齢のアトラクションは少ない)", parking:"専用駐車場なし・みずほPayPayドーム駐車場を利用(通常日は最初1h300円/以降150円、野球等イベント日は1日3000円上限、館内利用額に応じ割引・無料化あり)", crowd:"土日祝", source:"自分取材", visited:true, memo:"未就学児が遊べるスペースがほぼなく物足りなかった。特に強い思い出もない。無料で遊ばせられるスペースがあったかどうか記憶が曖昧", items:"子供用 耳栓"},
+  {ward:"中央区", name:"大濠公園", address:"中央区大濠公園", type:"屋外", rain:false, age:"全年齢", fee:"無料(駐車場代は安め)", parking:"あり(安め)", crowd:"常に人が多い", source:"自分取材", visited:true, memo:"遊具が多く公園も広い。景色がリニューアルされて綺麗(夜も良い)。飲食は近くのドーナツ屋か高めのカフェ程度。外国人観光客も多く賑わっている", items:"レジャーシート"},
+  {ward:"南区", name:"おおはし子どもプラザ", address:"南区塩原2-8-2(南市民センター1階)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"南市民センター等共用駐車場(土日祝・イベント時混雑、利用者は受付で駐車券処理が必要)", crowd:"土日祝", source:"公式(福岡市)", visited:false, memo:"利用時間9-18時、休館日は月曜(祝日は翌平日)・年末年始", items:"抱っこひも"},
+  {ward:"南区", name:"ひばる子どもプラザ(ひつじのおうち)", address:"南区桧原2-36-15", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"敷地内約8台(道が狭いので注意)", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"利用時間 月〜土10-16時、休館日は日曜・第1土曜・年末年始(12/29-1/3)", items:"抱っこひも"},
+  {ward:"城南区", name:"鳥飼子どもプラザ", address:"城南区鳥飼5-2-25(城南保健福祉センター2階)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"90分無料(城南区役所別館駐車場)", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"利用時間 日〜金10-16時(ランチタイム11-13時は休み)、休館日は土曜・毎月最終月曜・年末年始", items:"抱っこひも"},
+  {ward:"早良区", name:"西南子どもプラザ", address:"早良区西新3-13-1(西南学院百年館2階)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"学内駐車場は利用不可、近隣コインパーキングを自費利用", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"開設時間10-16時、休館日は日曜・第1月曜・8/13-15・12/25・年末年始", items:"抱っこひも"},
+  {ward:"早良区", name:"次郎丸中子どもプラザ", address:"次郎丸六丁目 次郎丸中学校内", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"あり(前日予約制、利用2時間まで)", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"自宅(次郎丸)から近い、要実地取材。開設時間10-16時、休館日は毎週土曜・最終金曜・夏季学校閉庁日・年末年始", items:"抱っこひも"},
+  {ward:"西区", name:"西区橋本子どもプラザ", address:"木の葉モール橋本2階", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"あり(木の葉モール)", crowd:"土日祝", source:"公式(福岡市)", visited:false, memo:"開設時間10-16時、休館日は毎週水曜・毎月最終金曜・年末年始(12/29-1/3)", items:"抱っこひも"},
+  {ward:"西区", name:"スキッズガーデン福岡伊都店", address:"西区北原1-2-1(イオンモール福岡伊都3階)", type:"屋内", rain:true, age:"0歳〜小学2年生(3歳以上は子供のみ入場可)", fee:"最初30分700円・以降15分毎300円(保護者1名まで無料、以降300円)・利用上限2.5時間", parking:"あり(イオンモール)", crowd:"土日祝", source:"口コミ", visited:false, memo:"ボールプール・なりきりタウン等、営業時間10:00-18:00(閉店30分前受付終了)", items:"滑り止め靴下 子供用"}
+];
+
+// アフィリエイトタグ未登録のため、現在はAmazon通常検索リンク(無料)。
+// Amazonアソシエイト登録後は tag=あなたのID を付与すること
+const AMAZON_ASSOCIATE_TAG = ""; // 例: "yourtag-22"
+function affiliateUrl(keyword) {
+  const base = `https://www.amazon.co.jp/s?k=${encodeURIComponent(keyword)}`;
+  return AMAZON_ASSOCIATE_TAG ? `${base}&tag=${AMAZON_ASSOCIATE_TAG}` : base;
+}
+
+const wardSelect = document.getElementById("f-ward");
+const wards = [...new Set(spots.map(s => s.ward))];
+wards.forEach(w => {
+  const opt = document.createElement("option");
+  opt.value = w; opt.textContent = w;
+  wardSelect.appendChild(opt);
+});
+
+function isFree(fee) {
+  return fee.startsWith("無料");
+}
+
+function render() {
+  const ward = document.getElementById("f-ward").value;
+  const type = document.getElementById("f-type").value;
+  const freeOnly = document.getElementById("f-free").checked;
+  const visitedOnly = document.getElementById("f-visited").checked;
+
+  const filtered = spots.filter(s => {
+    if (ward && s.ward !== ward) return false;
+    if (type && s.type !== type) return false;
+    if (freeOnly && !isFree(s.fee)) return false;
+    if (visitedOnly && !s.visited) return false;
+    return true;
+  });
+
+  document.getElementById("count").textContent = `${filtered.length} / ${spots.length} 件表示中`;
+
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty">条件に合うスポットが見つかりませんでした</div>';
+    return;
+  }
+  filtered.forEach(s => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="card-head"><h2>${s.name}</h2></div>
+      <div class="tags">
+        <span class="tag">${s.ward}</span>
+        <span class="tag">${s.type}</span>
+        ${s.rain ? '<span class="tag">雨天OK</span>' : ''}
+        ${s.visited ? '<span class="tag visited">オーナー実地取材済み</span>' : ''}
+      </div>
+      <dl>
+        <div><dt>住所</dt><dd>${s.address}</dd></div>
+        <div><dt>対象年齢</dt><dd>${s.age}</dd></div>
+        <div><dt>料金</dt><dd>${s.fee}</dd></div>
+        <div><dt>駐車場</dt><dd>${s.parking}</dd></div>
+        <div><dt>混雑時間帯</dt><dd>${s.crowd}</dd></div>
+      </dl>
+      <div class="memo">${s.memo}</div>
+      <a class="aff-link" href="${affiliateUrl(s.items)}" target="_blank" rel="noopener nofollow sponsored">関連グッズ「${s.items}」を見る</a>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+["f-ward","f-type"].forEach(id => document.getElementById(id).addEventListener("change", render));
+["f-free","f-visited"].forEach(id => document.getElementById(id).addEventListener("change", render));
+
+render();
+</script>
+</body>
+</html>
