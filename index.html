@@ -3,322 +3,513 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>福岡市 子供の遊び場所検索</title>
+<title>福岡市 子ども お出かけプランナー</title>
 <style>
   :root {
-    color-scheme: light dark;
-    --bg: #faf8f5;
-    --card-bg: #ffffff;
-    --text: #2b2b2b;
-    --sub: #6b6b6b;
-    --accent: #e8734a;
-    --accent-soft: #fdece4;
-    --border: #e5e0d8;
-    --badge-visited: #2f8f5b;
-    --badge-visited-bg: #e4f5ea;
+    color-scheme: light;
+    --paper: #F5F7EF;
+    --surface: #FFFFFF;
+    --surface-2: #EDF1E4;
+    --ink: #1E2A22;
+    --muted: #5E6E62;
+    --line: rgba(30,42,34,0.14);
+    --accent: #E2A63B;
+    --teal: #2F6F6B;
+    --teal-ink: #1F4E4B;
+    --free: #4C7A4F;
+    --free-bg: rgba(76,122,79,0.12);
+    --paid: #B5651D;
+    --paid-bg: rgba(181,101,29,0.12);
+    --mixed: #8A6D1E;
+    --mixed-bg: rgba(138,109,30,0.12);
+    --park: #4F7A34;
+    --park-bg: rgba(79,122,52,0.12);
+    --play: #2F6F6B;
+    --play-bg: rgba(47,111,107,0.12);
+    --zoo: #6C5B9E;
+    --zoo-bg: rgba(108,91,158,0.12);
+    --culture: #2E6C93;
+    --culture-bg: rgba(46,108,147,0.12);
+    --cafe: #B5527A;
+    --cafe-bg: rgba(181,82,122,0.12);
+    --onsen: #B0472E;
+    --onsen-bg: rgba(176,71,46,0.12);
+    --shadow: 0 1px 2px rgba(30,42,34,0.06);
+    --font-jp: "Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+    --font-mono: ui-monospace,"SF Mono","Cascadia Mono",Consolas,"Courier New",monospace;
+    --cols: minmax(200px,1.6fr) 90px 118px 100px minmax(150px,1.3fr) 28px;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #1c1a18;
-      --card-bg: #26241f;
-      --text: #f1ede6;
-      --sub: #b3ada2;
-      --accent: #ff9068;
-      --accent-soft: #3a2a22;
-      --border: #3a362f;
-      --badge-visited: #7bd9a0;
-      --badge-visited-bg: #1f3a2b;
+      --paper: #121810; --surface: #1B2419; --surface-2: #212C1F; --ink: #EAEFE4; --muted: #9CAA9E;
+      --line: rgba(234,239,228,0.16); --accent: #F0BE5C; --teal: #5FB0AA; --teal-ink: #8FD0CB;
+      --free: #8FCB92; --free-bg: rgba(143,203,146,0.15);
+      --paid: #E3A467; --paid-bg: rgba(227,164,103,0.15);
+      --mixed: #D9C171; --mixed-bg: rgba(217,193,113,0.15);
+      --park: #9BCB7C; --park-bg: rgba(155,203,124,0.15);
+      --play: #5FB0AA; --play-bg: rgba(95,176,170,0.15);
+      --zoo: #B7A6E0; --zoo-bg: rgba(183,166,224,0.15);
+      --culture: #86BEE6; --culture-bg: rgba(134,190,230,0.15);
+      --cafe: #E8A0BE; --cafe-bg: rgba(232,160,190,0.15);
+      --onsen: #E68A6D; --onsen-bg: rgba(230,138,109,0.15);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
   }
+  :root[data-theme="dark"] {
+    --paper: #121810; --surface: #1B2419; --surface-2: #212C1F; --ink: #EAEFE4; --muted: #9CAA9E;
+    --line: rgba(234,239,228,0.16); --accent: #F0BE5C; --teal: #5FB0AA; --teal-ink: #8FD0CB;
+    --free: #8FCB92; --free-bg: rgba(143,203,146,0.15);
+    --paid: #E3A467; --paid-bg: rgba(227,164,103,0.15);
+    --mixed: #D9C171; --mixed-bg: rgba(217,193,113,0.15);
+    --park: #9BCB7C; --park-bg: rgba(155,203,124,0.15);
+    --play: #5FB0AA; --play-bg: rgba(95,176,170,0.15);
+    --zoo: #B7A6E0; --zoo-bg: rgba(183,166,224,0.15);
+    --culture: #86BEE6; --culture-bg: rgba(134,190,230,0.15);
+    --cafe: #E8A0BE; --cafe-bg: rgba(232,160,190,0.15);
+    --onsen: #E68A6D; --onsen-bg: rgba(230,138,109,0.15);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+  :root[data-theme="light"] {
+    --paper: #F5F7EF; --surface: #FFFFFF; --surface-2: #EDF1E4; --ink: #1E2A22; --muted: #5E6E62;
+    --line: rgba(30,42,34,0.14); --accent: #E2A63B; --teal: #2F6F6B; --teal-ink: #1F4E4B;
+    --free: #4C7A4F; --free-bg: rgba(76,122,79,0.12);
+    --paid: #B5651D; --paid-bg: rgba(181,101,29,0.12);
+    --mixed: #8A6D1E; --mixed-bg: rgba(138,109,30,0.12);
+    --park: #4F7A34; --park-bg: rgba(79,122,52,0.12);
+    --play: #2F6F6B; --play-bg: rgba(47,111,107,0.12);
+    --zoo: #6C5B9E; --zoo-bg: rgba(108,91,158,0.12);
+    --culture: #2E6C93; --culture-bg: rgba(46,108,147,0.12);
+    --cafe: #B5527A; --cafe-bg: rgba(181,82,122,0.12);
+    --onsen: #B0472E; --onsen-bg: rgba(176,71,46,0.12);
+    --shadow: 0 1px 2px rgba(30,42,34,0.06);
+  }
+
   * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { overflow-x: hidden; }
   body {
-    margin: 0;
-    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
+    background: var(--paper); color: var(--ink); font-family: var(--font-jp);
+    line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; max-width: 100vw;
   }
-  header {
-    padding: 24px 20px 12px;
-    max-width: 1000px;
-    margin: 0 auto;
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  a { color: var(--teal-ink); }
+  a:hover { color: var(--teal); }
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+  .page { max-width: 1040px; margin: 0 auto; padding: 2.25rem 1.25rem 4rem; }
+
+  .topbar__inner {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end;
+    gap: 1rem 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line);
   }
-  h1 {
-    font-size: 1.5rem;
-    margin: 0 0 4px;
+  .eyebrow { margin: 0 0 .5rem; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal-ink); }
+  h1 { margin: 0 0 .55rem; font-size: clamp(1.4rem, 1.05rem + 1.4vw, 1.95rem); font-weight: 800; letter-spacing: -0.01em; text-wrap: balance; }
+  .lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: .92rem; }
+  .meta-note { text-align: right; font-size: .78rem; color: var(--muted); white-space: nowrap; }
+  .meta-note p { margin: 0 0 .2rem; }
+  .meta-note p:last-child { margin-bottom: 0; }
+
+  .ad-slot { margin: 1.4rem 0; }
+  .ad-box {
+    border: 1px dashed var(--line); border-radius: 10px; padding: 12px; text-align: center;
+    color: var(--muted); font-size: .76rem; background: var(--surface);
   }
-  header p {
-    color: var(--sub);
-    margin: 0;
-    font-size: 0.92rem;
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.1rem; margin: 1.4rem 0 .9rem;
+    padding: 1rem 1.1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
   }
-  .filters {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 16px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
+  #searchInput {
+    flex: 1 1 220px; min-width: 160px; padding: .5rem .8rem; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--paper); color: var(--ink); font-family: var(--font-jp); font-size: .85rem;
   }
-  .filters select, .filters label {
-    font-size: 0.9rem;
+  #searchInput::placeholder { color: var(--muted); }
+  .filter-group { display: flex; align-items: center; flex-wrap: wrap; gap: .35rem; }
+  .filter-group__label { font-size: .72rem; color: var(--muted); margin-right: .15rem; white-space: nowrap; }
+  .chip {
+    appearance: none; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+    font-family: var(--font-jp); font-size: .78rem; padding: .38rem .75rem; border-radius: 999px; cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s; display: inline-flex; align-items: center; gap: .35rem;
+    white-space: nowrap; flex-shrink: 0;
   }
-  .filters select {
-    padding: 6px 10px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--card-bg);
-    color: var(--text);
+  .chip:hover { border-color: var(--teal); }
+  .chip.is-active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .chip--toggle { user-select: none; }
+  .chip--toggle input { accent-color: var(--teal); margin: 0; }
+  .sort-group { display: flex; align-items: center; gap: .4rem; margin-left: auto; font-size: .78rem; color: var(--muted); }
+  #sortSelect {
+    font-family: var(--font-jp); font-size: .8rem; color: var(--ink); background: var(--paper);
+    border: 1px solid var(--line); border-radius: 999px; padding: .38rem .7rem;
   }
-  .filters label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--sub);
-    cursor: pointer;
+  .result-count { margin: 0 .2rem .7rem; font-size: .78rem; color: var(--muted); }
+  .result-count strong, .result-count span { font-variant-numeric: tabular-nums; }
+  .result-count strong { color: var(--ink); }
+
+  .table-scroll { overflow-x: auto; }
+  .venue-header {
+    display: grid; grid-template-columns: var(--cols); gap: .75rem; padding: 0 1.1rem .55rem;
+    font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); min-width: 780px;
   }
-  .count {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-    color: var(--sub);
-    font-size: 0.85rem;
+  .venue-list { display: flex; flex-direction: column; gap: .55rem; }
+  .venue-row { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); min-width: 780px; }
+  .venue-row[open] { border-color: var(--teal); }
+  .venue-row > summary {
+    list-style: none; cursor: pointer; display: grid; grid-template-columns: var(--cols);
+    gap: .75rem; align-items: center; padding: .85rem 1.1rem;
   }
-  .grid {
-    max-width: 1000px;
-    margin: 12px auto 40px;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
+  .venue-row > summary::-webkit-details-marker { display: none; }
+  .venue-row > summary::marker { content: ""; }
+  .cell-name strong { display: block; font-size: .95rem; font-weight: 700; }
+  .cell-name span { display: block; margin-top: .15rem; font-size: .75rem; color: var(--muted); }
+  .cell-ward { font-size: .85rem; font-weight: 600; color: var(--muted); }
+  .pill { display: inline-flex; align-items: center; padding: .22rem .55rem; border-radius: 999px; font-size: .72rem; font-weight: 600; white-space: nowrap; }
+  .pill--free { background: var(--free-bg); color: var(--free); }
+  .pill--paid { background: var(--paid-bg); color: var(--paid); }
+  .pill--mixed { background: var(--mixed-bg); color: var(--mixed); }
+  .tag { display: inline-flex; align-items: center; text-align: center; padding: .28rem .5rem; border-radius: 8px; font-size: .7rem; font-weight: 600; line-height: 1.25; white-space: normal; }
+  .tag--park { background: var(--park-bg); color: var(--park); }
+  .tag--play { background: var(--play-bg); color: var(--play); }
+  .tag--zoo { background: var(--zoo-bg); color: var(--zoo); }
+  .tag--culture { background: var(--culture-bg); color: var(--culture); }
+  .tag--cafe { background: var(--cafe-bg); color: var(--cafe); }
+  .tag--onsen { background: var(--onsen-bg); color: var(--onsen); }
+  .cell-features { display: flex; flex-wrap: wrap; gap: .3rem; }
+  .feat { font-size: .68rem; padding: .18rem .45rem; border-radius: 6px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .feat.is-yes { color: var(--ink); border-color: var(--teal); background: rgba(47,111,107,0.08); }
+  .chevron { width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(-45deg); transition: transform .18s; justify-self: end; }
+  .venue-row[open] .chevron { transform: rotate(135deg); }
+  .venue-detail {
+    padding: 0 1.1rem 1.1rem 1.1rem; border-top: 1px solid var(--line); margin-top: .2rem; padding-top: .9rem;
+    display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .8rem 1.6rem; font-size: .82rem;
   }
-  .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 16px;
-  }
-  .card-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .card h2 {
-    font-size: 1.02rem;
-    margin: 0 0 6px;
-  }
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 10px;
-  }
-  .tag {
-    font-size: 0.72rem;
-    padding: 2px 8px;
-    border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    white-space: nowrap;
-  }
-  .tag.visited {
-    background: var(--badge-visited-bg);
-    color: var(--badge-visited);
-    font-weight: bold;
-  }
-  dl {
-    margin: 0;
-    font-size: 0.85rem;
-  }
-  dl div {
-    display: flex;
-    gap: 8px;
-    padding: 4px 0;
-    border-top: 1px solid var(--border);
-  }
-  dl div:first-child { border-top: none; }
-  dt {
-    flex: 0 0 88px;
-    color: var(--sub);
-  }
-  dd {
-    margin: 0;
-    flex: 1;
-  }
-  .memo {
-    margin-top: 10px;
-    font-size: 0.82rem;
-    color: var(--sub);
-  }
-  footer {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    color: var(--sub);
-    font-size: 0.78rem;
-  }
-  .empty {
-    grid-column: 1 / -1;
-    text-align: center;
-    color: var(--sub);
-    padding: 40px 0;
-  }
-  .ad-slot {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  .ad-slot .ad-box {
-    border: 1px dashed var(--border);
-    border-radius: 10px;
-    padding: 14px;
-    text-align: center;
-    color: var(--sub);
-    font-size: 0.78rem;
-  }
+  .venue-detail dt { font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: .2rem; }
+  .venue-detail dd { margin: 0; }
+  .venue-detail .full { grid-column: 1 / -1; }
+  .venue-detail .note { color: var(--paid); font-size: .78rem; }
   .aff-link {
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 0.78rem;
-    color: var(--accent);
-    text-decoration: none;
-    border: 1px solid var(--accent);
-    border-radius: 999px;
-    padding: 3px 10px;
+    display: inline-block; margin-top: 4px; font-size: .76rem; color: var(--accent); text-decoration: none;
+    border: 1px solid var(--accent); border-radius: 999px; padding: 3px 10px;
   }
   .aff-link:hover { text-decoration: underline; }
+  .page-footer { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-size: .76rem; color: var(--muted); }
+  .page-footer p { margin: 0 0 .35rem; }
+  .page-footer p:last-child { margin-bottom: 0; }
+  .empty-state { padding: 2.5rem 1rem; text-align: center; color: var(--muted); font-size: .88rem; background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; }
+
+  @media (max-width: 760px) {
+    .page { padding: 1.4rem .9rem 3rem; }
+    .topbar__inner { flex-direction: column; align-items: flex-start; gap: .6rem; }
+    .meta-note { text-align: left; white-space: normal; }
+    .toolbar { flex-direction: column; align-items: stretch; gap: .65rem; padding: .9rem; max-width: 100%; overflow-x: hidden; }
+    #searchInput { width: 100%; }
+    .filter-group {
+      flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: none; padding: 0 .9rem 0 0; margin: 0 -.9rem 0 0;
+      -webkit-overflow-scrolling: touch; -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 1.8rem), transparent 100%);
+      mask-image: linear-gradient(to right, #000 calc(100% - 1.8rem), transparent 100%);
+    }
+    .filter-group::-webkit-scrollbar { display: none; }
+    .filter-group__label { flex: 0 0 auto; }
+    .chip { padding: .45rem .8rem; }
+    .filter-group .chip:last-child { margin-right: 2rem; }
+    .chip--toggle { align-self: flex-start; width: auto; }
+    .sort-group { margin-left: 0; width: 100%; justify-content: space-between; }
+    #sortSelect { flex: 1; min-width: 0; }
+    .venue-header { display: none; }
+    .venue-row, .venue-header { min-width: 0; }
+    .venue-row > summary {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "name chevron" "ward ward" "category price" "features features";
+      row-gap: .5rem;
+    }
+    .cell-name { grid-area: name; }
+    .chevron { grid-area: chevron; align-self: start; margin-top: .3rem; }
+    .cell-ward { grid-area: ward; }
+    .cell-category { grid-area: category; display: flex; align-items: center; }
+    .cell-price { grid-area: price; display: flex; align-items: center; justify-self: end; }
+    .cell-features { grid-area: features; }
+    .venue-detail { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>福岡市 子供の遊び場所検索</h1>
-  <p>未就学児(3〜6歳)の親向け。福岡市7区の遊び場を条件で絞り込めます。(プロトタイプ・データ収集中)</p>
-</header>
+<div class="page">
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="brand">
+        <p class="eyebrow">FUKUOKA · KIDS PLAY GUIDE</p>
+        <h1>福岡市 子ども お出かけプランナー</h1>
+        <p class="lede">未就学児(3〜6歳)の親向け。福岡市7区(東区・博多区・中央区・南区・城南区・早良区・西区)全域から、公園・屋内遊戯施設・動物園水族館・文化施設・キッズスペース付きカフェ・家族風呂まで幅広く収録。区・カテゴリ・料金で絞り込み、すぐに比較できます。</p>
+      </div>
+      <div class="meta-note">
+        <p>対象年齢：3〜6歳(未就学児)</p>
+        <p>調査基準日：2026年7月19日</p>
+      </div>
+    </div>
+  </header>
 
-<div class="filters">
-  <select id="f-ward">
-    <option value="">区: すべて</option>
-  </select>
-  <select id="f-type">
-    <option value="">屋内外: すべて</option>
-    <option value="屋内">屋内</option>
-    <option value="屋外">屋外</option>
-  </select>
-  <label><input type="checkbox" id="f-free"> 無料のみ</label>
-  <label><input type="checkbox" id="f-visited"> オーナー実地取材済みのみ</label>
+  <div class="ad-slot"><div class="ad-box">広告枠(Googleアドセンス設定後に表示)</div></div>
+
+  <div class="toolbar" role="region" aria-label="絞り込みと並び替え">
+    <input type="search" id="searchInput" placeholder="施設名やキーワードで検索…" aria-label="施設名やキーワードで検索">
+
+    <div class="filter-group" data-group="ward">
+      <span class="filter-group__label">区</span>
+      <button type="button" class="chip is-active" data-value="all">すべて</button>
+      <button type="button" class="chip" data-value="higashi">東区</button>
+      <button type="button" class="chip" data-value="hakata">博多区</button>
+      <button type="button" class="chip" data-value="chuo">中央区</button>
+      <button type="button" class="chip" data-value="minami">南区</button>
+      <button type="button" class="chip" data-value="jonan">城南区</button>
+      <button type="button" class="chip" data-value="sawara">早良区</button>
+      <button type="button" class="chip" data-value="nishi">西区</button>
+    </div>
+
+    <div class="filter-group" data-group="category">
+      <span class="filter-group__label">カテゴリ</span>
+      <button type="button" class="chip is-active" data-value="all">すべて</button>
+      <button type="button" class="chip" data-value="park">公園</button>
+      <button type="button" class="chip" data-value="play">屋内遊戯施設</button>
+      <button type="button" class="chip" data-value="zoo">動物園・水族館</button>
+      <button type="button" class="chip" data-value="culture">文化施設</button>
+      <button type="button" class="chip" data-value="cafe">カフェ</button>
+      <button type="button" class="chip" data-value="onsen">温泉・家族風呂</button>
+    </div>
+
+    <div class="filter-group" data-group="price">
+      <span class="filter-group__label">料金</span>
+      <button type="button" class="chip is-active" data-value="all">すべて</button>
+      <button type="button" class="chip" data-value="free">無料</button>
+      <button type="button" class="chip" data-value="paid">有料</button>
+      <button type="button" class="chip" data-value="mixed">一部無料</button>
+    </div>
+
+    <label class="chip chip--toggle">
+      <input type="checkbox" id="rainOnly">
+      雨の日でもOK
+    </label>
+
+    <div class="sort-group">
+      <label for="sortSelect">並び替え</label>
+      <select id="sortSelect">
+        <option value="price">無料を優先</option>
+        <option value="name">名前順</option>
+        <option value="ward">区順(東→西)</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="result-count"><strong id="resultCount">0</strong> / <span id="totalCount">0</span>件を表示中</p>
+
+  <div class="table-scroll">
+    <div class="venue-header">
+      <span>施設名</span>
+      <span>区</span>
+      <span>カテゴリ</span>
+      <span>料金</span>
+      <span>主な設備</span>
+      <span></span>
+    </div>
+    <div class="venue-list" id="venueList"></div>
+  </div>
+  <p class="empty-state" id="emptyState" hidden>条件に合うお出かけ先が見つかりませんでした。絞り込みを変更してみてください。</p>
+
+  <div class="ad-slot"><div class="ad-box">広告枠(Googleアドセンス設定後に表示)</div></div>
+
+  <footer class="page-footer">
+    <p>※料金・営業時間・休館日は変更される場合があります。「要確認」の記載がある項目は特に、訪問前に公式サイトや電話で最新情報をご確認ください。家族風呂は要予約の施設が多いため、事前連絡をおすすめします。</p>
+    <p>調査：福岡市公式サイト・各施設公式サイト・オーナー実地取材に基づく(2026年7月19日時点)。福岡市外の施設(糸島市・太宰府市・筑紫野市・大野城市・那珂川市・糟屋郡など)は本サイトの対象外としています。</p>
+    <p>本サイトはプロトタイプです。データは順次拡充中で、誤りに気づいた場合はご容赦ください。</p>
+  </footer>
 </div>
 
-<!-- 広告枠: Googleアドセンス審査通過後、ここに広告コードを設置する -->
-<div class="ad-slot"><div class="ad-box">広告枠(Googleアドセンス設定後に表示)</div></div>
-
-<div class="count" id="count"></div>
-<div class="grid" id="grid"></div>
-
-<!-- 広告枠: 記事下にも1枠 -->
-<div class="ad-slot"><div class="ad-box">広告枠(Googleアドセンス設定後に表示)</div></div>
-
-<footer>
-  データ出典: 福岡市公式サイト・各種まとめサイト・オーナー実地取材。料金や休館日は変更される場合があるため、来訪前に最新情報をご確認ください。
-</footer>
-
 <script>
-const spots = [
-  {ward:"東区", name:"香椎子どもプラザ(くすくす)", address:"セピアテラス西鉄香椎2階", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"専用駐車場なし・周辺コインパーキング利用(最安24時間300円程度)", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"開館時間10-16時、休館日は月曜・第3日曜・年末年始", items:"抱っこひも"},
-  {ward:"東区", name:"三苫子どもプラザ", address:"東区三苫5-1-40(エムザス1階)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"商業施設(エムザス)の駐車場を利用できる可能性あり(要確認)", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"休館日は毎週水曜・毎月第2日曜・年末年始(12/29-1/3)、開館時間は要確認", items:"ベビーカー 軽量"},
-  {ward:"東区", name:"東浜子どもプラザ", address:"ゆめタウン博多2階", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"ゆめタウン博多の共用駐車場を利用可", crowd:"要確認", source:"公式(福岡市)", visited:false, memo:"開館時間10-16時、休館日は毎週木曜・毎月第3金曜・年末年始(12/29-1/3)", items:"子供 着替えセット"},
-  {ward:"東区", name:"海の中道海浜公園(シー・ドラグーン)", address:"海の中道海浜公園内", type:"屋外", rain:false, age:"全年齢", fee:"入園料は中程度(体感)", parking:"あり(広いが満車になりやすく駐車場から園内まで遠い)", crowd:"昼前後は常に混雑気味", source:"自分取材", visited:true, memo:"国内最大級のアスレチックタワー。遊具・動物園・凧揚げ(海風が強く好条件)など子供が遊び回るには最適", items:"子供用 凧"},
-  {ward:"東区", name:"アイランドシティ中央公園(ぐりんぐりん)", address:"アイランドシティ内", type:"屋外", rain:false, age:"全年齢", fee:"公園は無料・ぐりんぐりん入館料は大人100円/小人50円/3歳以下無料", parking:"238台無料", crowd:"土日祝", source:"口コミ", visited:false, memo:"大規模複合遊具あり。ぐりんぐりん営業時間9-17時(火・祝翌日、年末年始休)", items:"子供用 日焼け止め"},
-  {ward:"博多区", name:"山王子どもプラザ", address:"博多区山王1-13-10(博多市民センター内)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"共用駐車場約80台(土日祝・イベント時は混雑)", crowd:"土日祝", source:"公式(福岡市)", visited:false, memo:"利用時間10-16時、休館日は日曜・毎月最終月曜(祝日は翌平日)・年末年始", items:"抱っこひも"},
-  {ward:"博多区", name:"キッザニア福岡", address:"博多区那珂6-23-1(ららぽーと福岡内)", type:"屋内", rain:true, age:"3歳〜15歳", fee:"例:平日6時間チケット大人2300円/小学生3800円(家族4人で12000〜13000円程度、プラン多数・要公式最新確認)", parking:"ららぽーと福岡駐車場、利用時間分(最大6時間)無料", crowd:"土日祝・長期休み", source:"口コミ", visited:false, memo:"職業体験型、事前予約推奨", items:"キッズ用 財布"},
-  {ward:"博多区", name:"福岡アンパンマンこどもミュージアム", address:"博多区内", type:"屋内", rain:true, age:"未就学児", fee:"有料(体感高め。大人2人子供2人で入場料だけで1万円近く。風船等の館内販売も千円超)", parking:"なし", crowd:"土日祝・長期休み", source:"自分取材", visited:true, memo:"子供の食いつきは非常に良いが、入場料以外に飲食・おもちゃ・ゲームで追加課金が発生しやすい。キャラクターパンがおすすめ", items:"アンパンマン グッズ"},
-  {ward:"博多区", name:"福岡おもちゃ美術館", address:"博多区那珂6-23-1(ららぽーと福岡 オーバルパーク内)", type:"屋内", rain:true, age:"未就学児", fee:"大人1600円(税込)・ギフトセット4600円(税込)", parking:"ららぽーと福岡駐車場(周辺コインパーキングは最安400円/日〜)", crowd:"土日祝", source:"口コミ", visited:false, memo:"営業時間10:00-18:00", items:"木製 知育玩具"},
-  {ward:"中央区", name:"中央区子どもプラザ「のびのび」", address:"中央区今泉1-19-22(天神CLASS 6階)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"専用駐車場なし・近隣有料駐車場を利用", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"開設時間・休館日の詳細は要問合せ(092-741-3564)", items:"抱っこひも"},
-  {ward:"中央区", name:"福岡市科学館(おやこひろば)", address:"中央区六本松", type:"屋内", rain:true, age:"未就学児", fee:"安め", parking:"なし", crowd:"情報なし(未確認。土日祝・長期休みは混みやすい傾向)", source:"自分取材", visited:true, memo:"サイエンスショー・プラネタリウムが楽しめる。館内涼しく夏場おすすめ。飲食店少なく1階のパン屋程度", items:"水筒 子供用"},
-  {ward:"中央区", name:"BOSS E・ZO FUKUOKA", address:"PayPayドーム隣接", type:"屋内", rain:true, age:"未就学児には不向き(全年齢施設だがアトラクション中心)", fee:"アトラクション個別課金制(例:V-World 4-12歳2時間1700-1800円、すべZO1000円等。未就学児が対象年齢のアトラクションは少ない)", parking:"専用駐車場なし・みずほPayPayドーム駐車場を利用(通常日は最初1h300円/以降150円、野球等イベント日は1日3000円上限、館内利用額に応じ割引・無料化あり)", crowd:"土日祝", source:"自分取材", visited:true, memo:"未就学児が遊べるスペースがほぼなく物足りなかった。特に強い思い出もない。無料で遊ばせられるスペースがあったかどうか記憶が曖昧", items:"子供用 耳栓"},
-  {ward:"中央区", name:"大濠公園", address:"中央区大濠公園", type:"屋外", rain:false, age:"全年齢", fee:"無料(駐車場代は安め)", parking:"あり(安め)", crowd:"常に人が多い", source:"自分取材", visited:true, memo:"遊具が多く公園も広い。景色がリニューアルされて綺麗(夜も良い)。飲食は近くのドーナツ屋か高めのカフェ程度。外国人観光客も多く賑わっている", items:"レジャーシート"},
-  {ward:"南区", name:"おおはし子どもプラザ", address:"南区塩原2-8-2(南市民センター1階)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"南市民センター等共用駐車場(土日祝・イベント時混雑、利用者は受付で駐車券処理が必要)", crowd:"土日祝", source:"公式(福岡市)", visited:false, memo:"利用時間9-18時、休館日は月曜(祝日は翌平日)・年末年始", items:"抱っこひも"},
-  {ward:"南区", name:"ひばる子どもプラザ(ひつじのおうち)", address:"南区桧原2-36-15", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"敷地内約8台(道が狭いので注意)", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"利用時間 月〜土10-16時、休館日は日曜・第1土曜・年末年始(12/29-1/3)", items:"抱っこひも"},
-  {ward:"城南区", name:"鳥飼子どもプラザ", address:"城南区鳥飼5-2-25(城南保健福祉センター2階)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"90分無料(城南区役所別館駐車場)", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"利用時間 日〜金10-16時(ランチタイム11-13時は休み)、休館日は土曜・毎月最終月曜・年末年始", items:"抱っこひも"},
-  {ward:"早良区", name:"西南子どもプラザ", address:"早良区西新3-13-1(西南学院百年館2階)", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"学内駐車場は利用不可、近隣コインパーキングを自費利用", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"開設時間10-16時、休館日は日曜・第1月曜・8/13-15・12/25・年末年始", items:"抱っこひも"},
-  {ward:"早良区", name:"次郎丸中子どもプラザ", address:"次郎丸六丁目 次郎丸中学校内", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"あり(前日予約制、利用2時間まで)", crowd:"情報なし(未確認。一般的に長期休み・雨天時は混みやすい傾向)", source:"公式(福岡市)", visited:false, memo:"自宅(次郎丸)から近い、要実地取材。開設時間10-16時、休館日は毎週土曜・最終金曜・夏季学校閉庁日・年末年始", items:"抱っこひも"},
-  {ward:"西区", name:"西区橋本子どもプラザ", address:"木の葉モール橋本2階", type:"屋内", rain:true, age:"未就学児", fee:"無料", parking:"あり(木の葉モール)", crowd:"土日祝", source:"公式(福岡市)", visited:false, memo:"開設時間10-16時、休館日は毎週水曜・毎月最終金曜・年末年始(12/29-1/3)", items:"抱っこひも"},
-  {ward:"西区", name:"スキッズガーデン福岡伊都店", address:"西区北原1-2-1(イオンモール福岡伊都3階)", type:"屋内", rain:true, age:"0歳〜小学2年生(3歳以上は子供のみ入場可)", fee:"最初30分700円・以降15分毎300円(保護者1名まで無料、以降300円)・利用上限2.5時間", parking:"あり(イオンモール)", crowd:"土日祝", source:"口コミ", visited:false, memo:"ボールプール・なりきりタウン等、営業時間10:00-18:00(閉店30分前受付終了)", items:"滑り止め靴下 子供用"}
-];
+  var wardLabels = { higashi:"東区", hakata:"博多区", chuo:"中央区", minami:"南区", jonan:"城南区", sawara:"早良区", nishi:"西区" };
+  var wardOrder = ["higashi","hakata","chuo","minami","jonan","sawara","nishi"];
+  var categoryLabels = { park:"公園", play:"屋内遊戯施設", zoo:"動物園・水族館", culture:"文化施設", cafe:"カフェ", onsen:"温泉・家族風呂" };
+  var featLabels = { parking:"駐車場", nursing:"授乳室", food:"飲食可" };
 
-// アフィリエイトタグ未登録のため、現在はAmazon通常検索リンク(無料)。
-// Amazonアソシエイト登録後は tag=あなたのID を付与すること
-const AMAZON_ASSOCIATE_TAG = ""; // 例: "yourtag-22"
-function affiliateUrl(keyword) {
-  const base = `https://www.amazon.co.jp/s?k=${encodeURIComponent(keyword)}`;
-  return AMAZON_ASSOCIATE_TAG ? `${base}&tag=${AMAZON_ASSOCIATE_TAG}` : base;
-}
-
-const wardSelect = document.getElementById("f-ward");
-const wards = [...new Set(spots.map(s => s.ward))];
-wards.forEach(w => {
-  const opt = document.createElement("option");
-  opt.value = w; opt.textContent = w;
-  wardSelect.appendChild(opt);
-});
-
-function isFree(fee) {
-  return fee.startsWith("無料");
-}
-
-function render() {
-  const ward = document.getElementById("f-ward").value;
-  const type = document.getElementById("f-type").value;
-  const freeOnly = document.getElementById("f-free").checked;
-  const visitedOnly = document.getElementById("f-visited").checked;
-
-  const filtered = spots.filter(s => {
-    if (ward && s.ward !== ward) return false;
-    if (type && s.type !== type) return false;
-    if (freeOnly && !isFree(s.fee)) return false;
-    if (visitedOnly && !s.visited) return false;
-    return true;
-  });
-
-  document.getElementById("count").textContent = `${filtered.length} / ${spots.length} 件表示中`;
-
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-  if (filtered.length === 0) {
-    grid.innerHTML = '<div class="empty">条件に合うスポットが見つかりませんでした</div>';
-    return;
+  var AMAZON_ASSOCIATE_TAG = ""; // Amazonアソシエイト承認後、自分のタグをここに設定
+  function affiliateUrl(keyword) {
+    var base = "https://www.amazon.co.jp/s?k=" + encodeURIComponent(keyword);
+    return AMAZON_ASSOCIATE_TAG ? base + "&tag=" + AMAZON_ASSOCIATE_TAG : base;
   }
-  filtered.forEach(s => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="card-head"><h2>${s.name}</h2></div>
-      <div class="tags">
-        <span class="tag">${s.ward}</span>
-        <span class="tag">${s.type}</span>
-        ${s.rain ? '<span class="tag">雨天OK</span>' : ''}
-        ${s.visited ? '<span class="tag visited">オーナー実地取材済み</span>' : ''}
-      </div>
-      <dl>
-        <div><dt>住所</dt><dd>${s.address}</dd></div>
-        <div><dt>対象年齢</dt><dd>${s.age}</dd></div>
-        <div><dt>料金</dt><dd>${s.fee}</dd></div>
-        <div><dt>駐車場</dt><dd>${s.parking}</dd></div>
-        <div><dt>混雑時間帯</dt><dd>${s.crowd}</dd></div>
-      </dl>
-      <div class="memo">${s.memo}</div>
-      <a class="aff-link" href="${affiliateUrl(s.items)}" target="_blank" rel="noopener nofollow sponsored">関連グッズ「${s.items}」を見る</a>
-    `;
-    grid.appendChild(card);
+
+  var data = [
+    // ===== 東区 =====
+    { id:1, name:"海の中道海浜公園(シー・ドラグーン)", ward:"higashi", type:"outdoor", category:"park", price:"paid", priceLabel:"有料", priceDetail:"入園料:大人450円、中学生以下無料、シニア210円。国内最大級のアスレチックタワー「シー・ドラグーン」は入園料のみで利用可", rain:false, parking:"yes", nursing:"yes", food:"yes", address:"福岡市東区大字西戸崎18-25", hours:"3〜10月9:30〜17:30/11〜2月9:30〜17:00", url:"https://uminaka-park.jp/", comment:"国内最大級のアスレチックタワー。遊具・動物園・凧揚げ(海風が強く好条件)など子供が遊び回るには最適(オーナー実地取材)。", note:"駐車場600円/日(入庫後30分以内無料)。", items:"子供用 凧" },
+    { id:2, name:"アイランドシティ中央公園(ぐりんぐりん)", ward:"higashi", type:"outdoor", category:"park", price:"mixed", priceLabel:"一部無料", priceDetail:"公園は無料。体験学習施設「ぐりんぐりん」入館料:大人100円/小人50円/3歳以下無料", rain:false, parking:"yes", nursing:"yes", food:"yes", address:"福岡市東区香椎照葉4-1", hours:"公園は常時開放。ぐりんぐりんは9:00〜17:00(火・祝翌日、年末年始休)", url:"https://ic-centralpark.jp/", comment:"大規模複合遊具あり。駐車場238台無料で車で行きやすい。", note:"", items:"子供用 日焼け止め" },
+    { id:3, name:"マリンワールド海の中道", ward:"higashi", type:"indoor", category:"zoo", price:"paid", priceLabel:"有料", priceDetail:"大人2,500円、小中学生1,200円、幼児(3歳以上)700円", rain:true, parking:"yes", nursing:"unclear", food:"yes", address:"福岡市東区大字西戸崎18-28", hours:"通常9:30〜17:30(12〜2月10:00〜17:00)", url:"https://marine-world.jp/", comment:"イルカ・アシカショーやふれあいプールなど水族館の王道。屋内中心で雨天でも安心。", note:"料金は要最新確認。", items:"水筒 子供用" },
+    { id:4, name:"香椎子どもプラザ(くすくす)", ward:"higashi", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"unclear", nursing:"unclear", food:"unclear", address:"セピアテラス西鉄香椎2階", hours:"10:00〜16:00(月曜・第3日曜・年末年始休)", url:"", comment:"福岡市の公式子どもプラザ。乳幼児連れが無料で気軽に立ち寄れる。", note:"専用駐車場なし、周辺コインパーキング利用(最安24時間300円程度)。", items:"抱っこひも" },
+    { id:5, name:"三苫子どもプラザ", ward:"higashi", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"unclear", nursing:"unclear", food:"unclear", address:"福岡市東区三苫5-1-40(エムザス1階)", hours:"休館日は毎週水曜・毎月第2日曜・年末年始(要確認)", url:"", comment:"商業施設(エムザス)内にあり買い物ついでに立ち寄りやすい。", note:"駐車場は商業施設のものを利用できる可能性あり(要確認)。", items:"ベビーカー 軽量" },
+    { id:6, name:"東浜子どもプラザ", ward:"higashi", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"ゆめタウン博多2階", hours:"10:00〜16:00(木曜・第3金曜・年末年始休)", url:"", comment:"ゆめタウン博多内、買い物ついでに利用しやすい。", note:"ゆめタウン博多の共用駐車場を利用可。", items:"子供 着替えセット" },
+    { id:7, name:"キッズランドUS福岡アイランドアイ店", ward:"higashi", type:"indoor", category:"play", price:"paid", priceLabel:"有料(要確認)", priceDetail:"料金は公式サイトで要確認", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市東区香椎照葉6-6-6 アイランドアイ2F", hours:"要公式サイト確認", url:"https://kidslandus.com/shop/fukuoka-islandeye/", comment:"スーパージャングルジムやボールプール、巨大迷路など大型室内遊び場。", note:"料金・営業時間は要最新確認。", items:"滑り止め靴下 子供用" },
+    { id:8, name:"cafe ことり", ward:"higashi", type:"indoor", category:"cafe", price:"paid", priceLabel:"有料(要確認)", priceDetail:"通常のカフェ価格帯(要確認)", rain:true, parking:"unclear", nursing:"unclear", food:"yes", address:"福岡市東区(詳細住所要確認)", hours:"要確認", url:"", comment:"おうちのような温かい雰囲気。キッズスペースに絵本やおもちゃが充実、靴を脱いで上がるスタイル。", note:"住所・営業時間は要確認。", items:"絵本 0歳から" },
+
+    // ===== 博多区 =====
+    { id:9, name:"山王子どもプラザ", ward:"hakata", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"博多区山王1-13-10(博多市民センター内)", hours:"10:00〜16:00(日曜・毎月最終月曜・年末年始休)", url:"", comment:"博多市民センター内の子どもプラザ。", note:"共用駐車場約80台(土日祝・イベント時は混雑)。", items:"抱っこひも" },
+    { id:10, name:"キッザニア福岡", ward:"hakata", type:"indoor", category:"play", price:"paid", priceLabel:"有料", priceDetail:"例:平日6時間チケット大人2,300円/小学生3,800円(家族4人で12,000〜13,000円程度、プラン多数)", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市博多区那珂6-23-1(ららぽーと福岡内)", hours:"要公式サイト確認、事前予約推奨", url:"https://www.kidzania.jp/lp/fukuoka/", comment:"職業体験型施設。3歳から楽しめ、3歳未満向けの「トドラーエリア」もある。", note:"入場は事前予約制。料金は要公式最新確認。", items:"キッズ用 財布" },
+    { id:11, name:"福岡アンパンマンこどもミュージアム", ward:"hakata", type:"indoor", category:"play", price:"paid", priceLabel:"有料(体感高め)", priceDetail:"大人2人子供2人で入場料だけで1万円近く。館内での飲食・おもちゃ・ゲームでも追加課金あり", rain:true, parking:"no", nursing:"unclear", food:"yes", address:"博多区内", hours:"要公式サイト確認", url:"", comment:"子供の食いつきは非常に良いが、入場料以外の出費がかさみやすい(オーナー実地取材)。キャラクターパンがおすすめ。", note:"駐車場なし。", items:"アンパンマン グッズ" },
+    { id:12, name:"福岡おもちゃ美術館", ward:"hakata", type:"indoor", category:"culture", price:"paid", priceLabel:"有料", priceDetail:"大人1,600円(税込)・ギフトセット4,600円(税込)", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市博多区那珂6-23-1(ららぽーと福岡 オーバルパーク内)", hours:"10:00〜18:00", url:"", comment:"木製の知育玩具にたっぷり触れられる文化施設。", note:"ららぽーと福岡駐車場を利用(周辺コインパーキングは最安400円/日〜)。", items:"木製 知育玩具" },
+    { id:13, name:"ボーネルンド キドキド 博多リバレインモール店", ward:"hakata", type:"indoor", category:"play", price:"paid", priceLabel:"有料", priceDetail:"目安:子ども平日最初30分800円+延長10分200円、休日1,000円〜、保護者700円(要最新確認)", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市博多区下川端町3-1 博多リバレインモール by TAKASHIMAYA 2F", hours:"10:30〜19:30(1/1休)", url:"https://kidokid.bornelund.co.jp/", comment:"北欧デザインの上質な遊具が揃う室内遊び場。天神・博多エリアのお出かけと組み合わせやすい。", note:"料金は要最新確認。", items:"知育玩具 北欧デザイン" },
+    { id:14, name:"スキッズガーデン キャナルシティ博多店", ward:"hakata", type:"indoor", category:"play", price:"paid", priceLabel:"有料", priceDetail:"こども最初の30分800円、延長15分ごと300円。大人は平日無料、土日祝500円。0歳は平日無料", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市博多区住吉1丁目 キャナルシティ博多内", hours:"要確認(電話080-4886-2924)", url:"https://www.fantasy.co.jp/skidsgarden/shoplist/shop34383/", comment:"3歳以上は子どものみ入場可(最大2.5時間)で、親の買い物中の一時預けにも使える。", note:"", items:"滑り止め靴下 子供用" },
+    { id:15, name:"みなと温泉 波葉の湯", ward:"hakata", type:"indoor", category:"onsen", price:"paid", priceLabel:"有料", priceDetail:"貸切風呂(家族風呂)平日90分3,900円(定員4名まで)。タオル別売", rain:true, parking:"unclear", nursing:"unclear", food:"unclear", address:"福岡市博多区築港本町13-1(ベイサイドプレイス博多内)", hours:"要確認", url:"https://namiha.jp/", comment:"ベイサイドプレイス博多内で、海を眺めながら入浴できる立地。マリンワールド帰りにも立ち寄りやすい。", note:"貸切風呂は当日来店時のみ予約可の可能性(要確認)。", items:"子供用 バスグッズ" },
+    { id:16, name:"グングンカフェ 博多リバレインモール店", ward:"hakata", type:"indoor", category:"cafe", price:"paid", priceLabel:"有料", priceDetail:"昼1,000円/夜2,000円程度", rain:true, parking:"unclear", nursing:"unclear", food:"yes", address:"福岡市博多区下川端町3-1 博多リバレインモールB2", hours:"要最新確認(営業継続が不確実な情報あり)", url:"", comment:"客席の約3分の1がキッズスペースで、おもちゃ・絵本充実、約20人分の広さ。", note:"※要最新確認:訪問前に電話(092-206-9510)等でのご確認を強く推奨。", items:"絵本 セット" },
+    { id:17, name:"大井中央公園", ward:"hakata", type:"outdoor", category:"park", price:"free", priceLabel:"無料", priceDetail:"無料", rain:false, parking:"unclear", nursing:"unclear", food:"unclear", address:"福岡市博多区(要確認)", hours:"常時開放", url:"", comment:"無料の草ソリ・森の中を抜けるロングスライダーが人気。幼児向け遊具もあり。", note:"住所・駐車場は要確認。", items:"レジャーシート" },
+    { id:18, name:"東平尾公園 大谷広場", ward:"hakata", type:"outdoor", category:"park", price:"free", priceLabel:"無料", priceDetail:"無料", rain:false, parking:"unclear", nursing:"unclear", food:"unclear", address:"福岡市博多区東平尾", hours:"常時開放", url:"", comment:"全長約80mのローラー滑り台やアスレチック遊具が充実。", note:"駐車場は要確認。", items:"子供用 手袋(滑り台用)" },
+
+    // ===== 中央区 =====
+    { id:19, name:"中央区子どもプラザ「のびのび」", ward:"chuo", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"no", nursing:"unclear", food:"unclear", address:"中央区今泉1-19-22(天神CLASS 6階)", hours:"開設時間・休館日の詳細は要問合せ(092-741-3564)", url:"", comment:"天神のど真ん中でアクセス良好。", note:"専用駐車場なし、近隣有料駐車場を利用。", items:"抱っこひも" },
+    { id:20, name:"福岡市科学館(おやこひろば)", ward:"chuo", type:"indoor", category:"culture", price:"mixed", priceLabel:"一部無料", priceDetail:"入館無料。基本展示室・ドームシアターは各大人510円、高校生310円、小中学生200円。未就学児は無料", rain:true, parking:"no", nursing:"unclear", food:"unclear", address:"福岡市中央区六本松4-2-1", hours:"9:30〜21:30(火休、年末年始休)", url:"https://www.fukuokacity-kagakukan.jp/", comment:"サイエンスショー・プラネタリウムが楽しめる。館内涼しく夏場おすすめ。飲食店少なく1階のパン屋程度(オーナー実地取材)。", note:"駐車場なし。", items:"水筒 子供用" },
+    { id:21, name:"BOSS E・ZO FUKUOKA", ward:"chuo", type:"indoor", category:"play", price:"paid", priceLabel:"有料(アトラクション個別課金)", priceDetail:"例:V-World 4-12歳2時間1,700-1,800円、すべZO1,000円等。未就学児が対象年齢のアトラクションは少ない", rain:true, parking:"no", nursing:"unclear", food:"yes", address:"PayPayドーム隣接", hours:"要公式サイト確認", url:"https://e-zofukuoka.com/ticket/price", comment:"未就学児が遊べるスペースがほぼなく物足りなかった。特に強い思い出もない(オーナー実地取材)。", note:"専用駐車場なし・みずほPayPayドーム駐車場を利用(通常日は最初1h300円/以降150円、野球等イベント日は1日3,000円上限)。", items:"子供用 耳栓" },
+    { id:22, name:"大濠公園", ward:"chuo", type:"outdoor", category:"park", price:"free", priceLabel:"無料", priceDetail:"無料(公園入園)", rain:false, parking:"yes", nursing:"yes", food:"yes", address:"福岡市中央区大濠公園", hours:"常時開放", url:"https://www.ohorikouen.jp/", comment:"遊具が多く公園も広い。景色がリニューアルされて綺麗(夜も良い)。外国人観光客も多く賑わっている(オーナー実地取材)。", note:"休日は駐車場が混雑しやすい。", items:"レジャーシート" },
+    { id:23, name:"あそびパークPLUS マークイズ福岡ももち店", ward:"chuo", type:"indoor", category:"play", price:"paid", priceLabel:"有料", priceDetail:"子ども:平日最初30分700円+延長10分230円、休日800円+延長10分260円/大人:700円定額", rain:true, parking:"yes", nursing:"yes", food:"unclear", address:"福岡市中央区地行浜2-2-1 MARK IS 福岡ももち 3F", hours:"10:00〜19:00(最終受付18:30)", url:"https://bandainamco-am.co.jp/kids/asobiparkplus/loc/fukuoka-momochi.html", comment:"雨の日でも安心の屋内遊具施設。ボールプールやアスレチックが充実。", note:"子ども3人につき大人1人以上の同伴が必要。", items:"ボールプール用 着替え" },
+    { id:24, name:"ニンジャ☆パーク 福岡ももち店", ward:"chuo", type:"indoor", category:"play", price:"paid", priceLabel:"有料(未就学児は入場無料)", priceDetail:"未就学児は入場無料(会員登録料500円別途)。一般90分〜フリーパス4,000円(土日祝+300円)", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市中央区地行浜2丁目2-1 MARK IS福岡ももち3F", hours:"要確認", url:"https://ninjapark.net/fukuoka-momochi/", comment:"屋内トランポリン＆ニンジャ系アスレチック。体を動かしたい年長児向け。", note:"2歳以上は保護者同伴必須。", items:"動きやすい 子供服" },
+    { id:25, name:"福岡市動植物園", ward:"chuo", type:"outdoor", category:"zoo", price:"paid", priceLabel:"有料", priceDetail:"大人600円・高校生300円・中学生以下無料", rain:false, parking:"yes", nursing:"yes", food:"yes", address:"福岡市中央区南公園1-1", hours:"9:00〜17:00(月休、年末年始休)", url:"https://zoo.city.fukuoka.lg.jp/", comment:"動物とのふれあいに加え遊園地的な乗り物もあり、1日たっぷり遊べる定番お出かけ先。", note:"雨天時は一部展示のみ利用可。", items:"子供用 双眼鏡" },
+    { id:26, name:"清川SALON", ward:"chuo", type:"indoor", category:"cafe", price:"paid", priceLabel:"有料", priceDetail:"予算1,000〜3,999円程度。キッズメニュー「ライスコロッケセット」500円等", rain:true, parking:"unclear", nursing:"unclear", food:"yes", address:"福岡市中央区清川2-6-4", hours:"11:30〜翌1:00(ランチ〜14:00、日休)", url:"", comment:"イタリア修業のシェフによる本格イタリアン。1部屋丸ごとキッズスペースでうんてい等の木工遊具あり。", note:"", items:"キッズ用 食器セット" },
+
+    // ===== 南区 =====
+    { id:27, name:"おおはし子どもプラザ", ward:"minami", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"南区塩原2-8-2(南市民センター1階)", hours:"9:00〜18:00(月曜・年末年始休)", url:"", comment:"南市民センター内の子どもプラザ。", note:"共用駐車場(土日祝・イベント時混雑、受付で駐車券処理が必要)。", items:"抱っこひも" },
+    { id:28, name:"ひばる子どもプラザ(ひつじのおうち)", ward:"minami", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"南区桧原2-36-15", hours:"月〜土10:00〜16:00(日曜・第1土曜・年末年始休)", url:"", comment:"自然光が入る館内で落ち着いて過ごせる。", note:"敷地内約8台(道が狭いので注意)。", items:"抱っこひも" },
+    { id:29, name:"ABURAYAMA FUKUOKA(油山市民の森・油山牧場)", ward:"minami", type:"outdoor", category:"zoo", price:"free", priceLabel:"無料", priceDetail:"入園無料(駐車場は普通車3時間まで300円、以降1時間毎100円)", rain:false, parking:"yes", nursing:"unclear", food:"yes", address:"福岡市南区柏原(油山山麓)", hours:"9:00〜18:00(第1・第3水休)", url:"https://www.aburayama-fukuoka.com/", comment:"ウシ・ヒツジ・ヤギとのふれあいや搾乳体験ができる、市街地から近い里山体験スポット。", note:"駐車料金は要最新確認。", items:"動物 餌やり用エサ" },
+    { id:30, name:"桧原運動公園", ward:"minami", type:"outdoor", category:"park", price:"free", priceLabel:"無料", priceDetail:"無料", rain:false, parking:"unclear", nursing:"yes", food:"unclear", address:"福岡市南区桧原", hours:"常時開放", url:"", comment:"自然豊かな大きな公園。わんぱく広場など様々な楽しみ方ができ、管理棟内に赤ちゃんの駅あり。", note:"駐車場は要確認。", items:"虫よけスプレー 子供用" },
+    { id:31, name:"Swalka", ward:"minami", type:"indoor", category:"cafe", price:"paid", priceLabel:"有料(要確認)", priceDetail:"ドリンク+キッズスペース利用(詳細要確認)", rain:true, parking:"unclear", nursing:"yes", food:"yes", address:"福岡市南区長住", hours:"10:00〜17:00(土日18:00まで)", url:"", comment:"全天候型キッズスペースと本格コーヒースタンドが融合した新しいスタイルのお店。授乳室・おむつ交換台完備。", note:"2025年オープンの新スポット。詳細は要確認。", items:"授乳ケープ" },
+
+    // ===== 城南区 =====
+    { id:32, name:"鳥飼子どもプラザ", ward:"jonan", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"城南区鳥飼5-2-25(城南保健福祉センター2階)", hours:"日〜金10:00〜16:00(ランチタイム11-13時休み、土曜・毎月最終月曜・年末年始休)", url:"", comment:"城南区役所別館内の子どもプラザ。", note:"90分無料(城南区役所別館駐車場)。", items:"抱っこひも" },
+    { id:33, name:"西南杜の湖畔公園", ward:"jonan", type:"outdoor", category:"park", price:"free", priceLabel:"無料", priceDetail:"無料", rain:false, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市城南区七隈6丁目", hours:"常時開放", url:"https://www.midorimachi.jp/park/detail.php?code=502001", comment:"バリアフリー・インクルーシブ遊具が充実。駐車場も広い。", note:"", items:"車椅子対応 砂場グッズ" },
+    { id:34, name:"友泉亭公園", ward:"jonan", type:"outdoor", category:"park", price:"paid", priceLabel:"有料", priceDetail:"大人200円、小人(中学生以下)100円。みどりの日は無料", rain:false, parking:"yes", nursing:"yes", food:"unclear", address:"福岡市城南区友泉亭", hours:"要公式サイト確認", url:"https://yusentei.fukuoka-teien.com/", comment:"池泉回遊式の本格日本庭園。走り回るより鯉を見たり自然に触れる静かな時間向け。授乳室あり。", note:"", items:"鯉のエサ" },
+    { id:35, name:"城南市民プール", ward:"jonan", type:"indoor", category:"play", price:"paid", priceLabel:"有料(要確認)", priceDetail:"料金は要確認", rain:true, parking:"unclear", nursing:"unclear", food:"unclear", address:"福岡市城南区(要確認)", hours:"要確認(季節営業の可能性あり)", url:"", comment:"屋内温水の25mプールに加え、幼児用の温水プール(水深0.3〜0.4m)もあり。", note:"営業期間・料金は要最新確認。", items:"子供用 水着" },
+    { id:36, name:"HEALTHWORX(ヘルスワークス)", ward:"jonan", type:"indoor", category:"cafe", price:"paid", priceLabel:"有料", priceDetail:"バランス定食900円、キッズプレート600円〜", rain:true, parking:"unclear", nursing:"unclear", food:"yes", address:"福岡市城南区梅林4-1-1", hours:"11:00〜20:00(LO19:30、日・祝休)", url:"", comment:"栄養士オーナーによるヘルシー志向の定食屋。キッズスペース付きの個室が2部屋あり、時間無制限。", note:"", items:"キッズ用 食器セット" },
+
+    // ===== 早良区 =====
+    { id:37, name:"西南子どもプラザ", ward:"sawara", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"no", nursing:"unclear", food:"unclear", address:"早良区西新3-13-1(西南学院百年館2階)", hours:"10:00〜16:00(日曜・第1月曜・8/13-15・12/25・年末年始休)", url:"", comment:"西新エリアの子どもプラザ。", note:"学内駐車場は利用不可、近隣コインパーキングを自費利用。", items:"抱っこひも" },
+    { id:38, name:"次郎丸中子どもプラザ", ward:"sawara", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"次郎丸六丁目(次郎丸中学校内)", hours:"10:00〜16:00(土曜・最終金曜・夏季学校閉庁日・年末年始休)", url:"", comment:"保育士に育児相談もできる、完全無料の日常使いスポット。", note:"駐車場は前日予約制(利用2時間まで)。", items:"抱っこひも" },
+    { id:39, name:"イオンモール福岡ルクルパーク", ward:"sawara", type:"outdoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料(保護者同伴必須、保護者1人につき子ども3人まで)", rain:false, parking:"yes", nursing:"yes", food:"yes", address:"福岡市早良区野芥4-45-61", hours:"モールの営業時間に準ずる(要最新確認)", url:"https://fukuoka.aeonmall.jp/kids", comment:"無料で気軽に立ち寄れる商業施設内の遊び場。", note:"雨天時は利用不可。モール内には別途屋内キッズスペースも複数あり。", items:"日除け帽子" },
+    { id:40, name:"田村中央公園", ward:"sawara", type:"outdoor", category:"park", price:"free", priceLabel:"無料", priceDetail:"無料", rain:false, parking:"unclear", nursing:"unclear", food:"unclear", address:"福岡市早良区田村", hours:"常時開放", url:"", comment:"近所の散歩がてら立ち寄れる公園。遊具の高さが控えめで小さな子ども連れでも安心。", note:"", items:"レジャーシート" },
+    { id:41, name:"西油山中央公園(シンデレラ公園)", ward:"sawara", type:"outdoor", category:"park", price:"free", priceLabel:"無料", priceDetail:"無料(駐車場30台も無料)", rain:false, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市早良区大字西油山", hours:"常時開放", url:"https://www.midorimachi.jp/park/detail.php?code=604002", comment:"高台にあり見晴らしがよく、大型複合遊具でしっかり体を動かせる。夜景スポットとしても有名。", note:"", items:"レジャーシート" },
+    { id:42, name:"百道中央公園", ward:"sawara", type:"outdoor", category:"park", price:"free", priceLabel:"無料", priceDetail:"入園無料。駐車場47台(有料、金額不明)", rain:false, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市早良区百道浜3丁目", hours:"常時開放", url:"", comment:"インクルーシブ公園。車椅子でも遊べる砂場や赤ちゃんブランコ、ミストシャワーもあり。", note:"", items:"ミスト対応 タオル" },
+    { id:43, name:"ピエトロ 次郎丸店", ward:"sawara", type:"indoor", category:"cafe", price:"paid", priceLabel:"有料", priceDetail:"通常のレストラン価格帯(具体的な金額は不明)", rain:true, parking:"unclear", nursing:"unclear", food:"yes", address:"福岡市早良区次郎丸4-3-21", hours:"11:00〜21:30、定休日なし", url:"https://www.pietro.co.jp/restaurant/detail/9", comment:"ガラス張りのキッズルームに滑り台・積み木あり、壁はクッション素材。", note:"週末はキッズスペース近くの席の予約推奨。", items:"子供用 食事エプロン" },
+    { id:44, name:"親子カフェ bao・bab", ward:"sawara", type:"indoor", category:"cafe", price:"paid", priceLabel:"有料", priceDetail:"昼の予算目安2,000〜2,999円", rain:true, parking:"unclear", nursing:"yes", food:"yes", address:"福岡市早良区城西3-21-27", hours:"10:00〜16:00/17:00〜22:00、定休日なし", url:"https://foodplace.jp/baobab/", comment:"子連れ利用が前提の空間。授乳室・おむつ交換台・ベビーベッドも完備で非常に安心。", note:"", items:"ベビーベッド用シーツ" },
+    { id:45, name:"ふくの湯 早良店", ward:"sawara", type:"indoor", category:"onsen", price:"paid", priceLabel:"有料", priceDetail:"入館料 平日850円・土日祝900円。家族風呂は3,200〜3,700円(基本60分)", rain:true, parking:"unclear", nursing:"unclear", food:"yes", address:"福岡市早良区(姪浜駅から車で約7分)", hours:"9:00〜翌3:00頃(要確認)", url:"https://www.fukunoyu.com/sawara/", comment:"2024年リニューアルで新しい。家族風呂は当日予約のみ受付。", note:"家族風呂は大人4名まで。", items:"子供用 バスグッズ" },
+
+    // ===== 西区 =====
+    { id:46, name:"西区橋本子どもプラザ", ward:"nishi", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"木の葉モール橋本2階", hours:"10:00〜16:00(水曜・毎月最終金曜・年末年始休)", url:"", comment:"木の葉モール橋本内にあり、有料の大型遊具エリア「とばんね」も併設。", note:"駐車場あり(木の葉モール)。", items:"抱っこひも" },
+    { id:47, name:"西区姪浜子どもプラザ とことこ", ward:"nishi", type:"indoor", category:"play", price:"free", priceLabel:"無料", priceDetail:"無料", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市西区姪の浜4丁目8-28", hours:"10:00〜16:00(年末年始休)", url:"https://www.fukuoka-sjc.org/tokotoko/", comment:"姪浜駅北口徒歩約3分でアクセスしやすい。予約不要。", note:"", items:"抱っこひも" },
+    { id:48, name:"スキッズガーデン 福岡伊都店", ward:"nishi", type:"indoor", category:"play", price:"paid", priceLabel:"有料", priceDetail:"最初30分700円・以降15分毎300円(保護者1名まで無料、以降300円)・利用上限2.5時間", rain:true, parking:"yes", nursing:"unclear", food:"unclear", address:"西区北原1-2-1(イオンモール福岡伊都3階)", hours:"10:00〜18:00(閉店30分前受付終了)", url:"", comment:"ボールプール・なりきりタウン等。0歳〜小学2年生対象、3歳以上は子供のみ入場可。", note:"", items:"滑り止め靴下 子供用" },
+    { id:49, name:"のこのしまアイランドパーク", ward:"nishi", type:"outdoor", category:"park", price:"paid", priceLabel:"有料", priceDetail:"入園料:高校生以上1,200円・小中学生600円・3歳以上400円/フェリー:大人230円・小児120円", rain:false, parking:"yes", nursing:"unclear", food:"yes", address:"福岡市西区能古(姪浜渡船場よりフェリー)", hours:"9:00〜17:30(季節により変動)、年中無休", url:"https://nokonoshima.com/", comment:"フェリー移動自体が特別な体験に。花畑・アスレチック・ミニ動物園で1日たっぷり遊べる。", note:"フェリー乗船時間を含むため所要時間は長め。", items:"酔い止め 子供用" },
+    { id:50, name:"西部運動公園", ward:"nishi", type:"outdoor", category:"park", price:"free", priceLabel:"無料", priceDetail:"入園無料。駐車場は1時間100円、1日最大300円(15分以内出庫無料)", rain:false, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡市西区飯盛211", hours:"駐車場利用時間6:00〜21:00", url:"https://seibu-sports-park.com/", comment:"チューリップ・あじさいなど四季の花も楽しめる広い運動公園。", note:"", items:"レジャーシート" },
+    { id:51, name:"今津運動公園", ward:"nishi", type:"outdoor", category:"park", price:"free", priceLabel:"無料", priceDetail:"入園無料。駐車場は入庫30分無料、以降1時間100円(1日最大300円)", rain:false, parking:"yes", nursing:"unclear", food:"unclear", address:"福岡県福岡市西区今津", hours:"常時開放", url:"https://imazu-sportspark.jp/", comment:"アスレチック広場に大小12種の遊具、ちびっこ広場もあり。敷地が広く1日楽しめる。", note:"", items:"レジャーシート" },
+    { id:52, name:"BREAD & DISHES MUGINOKI(麦の木)", ward:"nishi", type:"indoor", category:"cafe", price:"paid", priceLabel:"有料", priceDetail:"昼1,000〜1,999円程度", rain:true, parking:"unclear", nursing:"unclear", food:"yes", address:"福岡市西区西都2丁目4-25 麦の木本店ビル1F", hours:"火水木8:00〜18:00、金土日8:00〜22:00", url:"https://www.muginoki.com/bread.html", comment:"パン屋直営カフェでキッズルーム完備。おもちゃ・絵本、キッズチェアあり。", note:"", items:"キッズ用 食器セット" }
+  ];
+
+  function featChip(key, state) {
+    var label = featLabels[key];
+    var yes = state === "yes";
+    return '<span class="feat' + (yes ? ' is-yes' : '') + '">' + (yes ? "" : "?") + label + '</span>';
+  }
+  function priceClass(p) { return p === "free" ? "pill--free" : (p === "paid" ? "pill--paid" : "pill--mixed"); }
+
+  var listEl = document.getElementById("venueList");
+  var emptyEl = document.getElementById("emptyState");
+  var resultCountEl = document.getElementById("resultCount");
+  var totalCountEl = document.getElementById("totalCount");
+  totalCountEl.textContent = data.length;
+
+  data.forEach(function (item) {
+    var el = document.createElement("details");
+    el.className = "venue-row";
+    el.dataset.ward = item.ward;
+    el.dataset.category = item.category;
+    el.dataset.price = item.price;
+    el.dataset.rain = item.rain ? "yes" : "no";
+
+    var rainTag = item.rain ? '<span class="feat is-yes">雨天OK</span>' : "";
+    var typeNote = item.type === "indoor" ? "屋内" : "屋外";
+
+    el.innerHTML =
+      '<summary>' +
+        '<div class="cell-name"><strong>' + item.name + '</strong><span>' + typeNote + '</span></div>' +
+        '<div class="cell-ward">' + wardLabels[item.ward] + '</div>' +
+        '<div class="cell-category"><span class="tag tag--' + item.category + '">' + categoryLabels[item.category] + '</span></div>' +
+        '<div class="cell-price"><span class="pill ' + priceClass(item.price) + '">' + item.priceLabel + '</span></div>' +
+        '<div class="cell-features">' + featChip("parking", item.parking) + featChip("nursing", item.nursing) + featChip("food", item.food) + rainTag + '</div>' +
+        '<span class="chevron"></span>' +
+      '</summary>' +
+      '<dl class="venue-detail">' +
+        '<div><dt>住所</dt><dd>' + item.address + '</dd></div>' +
+        '<div><dt>営業時間</dt><dd>' + item.hours + '</dd></div>' +
+        '<div class="full"><dt>料金詳細</dt><dd>' + item.priceDetail + '</dd></div>' +
+        '<div class="full"><dt>ひとことコメント</dt><dd>' + item.comment + '</dd></div>' +
+        (item.note ? '<div class="full"><dt>要確認・補足</dt><dd class="note">' + item.note + '</dd></div>' : '') +
+        (item.url ? '<div class="full"><dt>公式サイト</dt><dd><a href="' + item.url + '" target="_blank" rel="noopener noreferrer">' + item.url + '</a></dd></div>' : '') +
+        '<div class="full"><a class="aff-link" href="' + affiliateUrl(item.items) + '" target="_blank" rel="noopener nofollow sponsored">関連グッズ「' + item.items + '」を見る</a></div>' +
+      '</dl>';
+
+    item.el = el;
+    listEl.appendChild(el);
   });
-}
 
-["f-ward","f-type"].forEach(id => document.getElementById(id).addEventListener("change", render));
-["f-free","f-visited"].forEach(id => document.getElementById(id).addEventListener("change", render));
+  var state = { ward: "all", category: "all", price: "all", rainOnly: false, query: "" };
 
-render();
+  function applyFilters() {
+    var q = state.query.trim().toLowerCase();
+    var count = 0;
+    data.forEach(function (item) {
+      var matchWard = state.ward === "all" || item.ward === state.ward;
+      var matchCategory = state.category === "all" || item.category === state.category;
+      var matchPrice = state.price === "all" || item.price === state.price;
+      var matchRain = !state.rainOnly || item.rain === true;
+      var haystack = (item.name + " " + wardLabels[item.ward] + " " + item.comment + " " + categoryLabels[item.category]).toLowerCase();
+      var matchQuery = !q || haystack.indexOf(q) !== -1;
+      var visible = matchWard && matchCategory && matchPrice && matchRain && matchQuery;
+      item.el.style.display = visible ? "" : "none";
+      if (visible) count++;
+    });
+    resultCountEl.textContent = count;
+    emptyEl.hidden = count !== 0;
+  }
+
+  function priceRank(p) { return p === "free" ? 0 : (p === "mixed" ? 1 : 2); }
+  function wardRank(w) { return wardOrder.indexOf(w); }
+
+  function applySort(key) {
+    var sorted = data.slice();
+    if (key === "price") sorted.sort(function (a, b) { return priceRank(a.price) - priceRank(b.price) || a.name.localeCompare(b.name, "ja"); });
+    else if (key === "name") sorted.sort(function (a, b) { return a.name.localeCompare(b.name, "ja"); });
+    else if (key === "ward") sorted.sort(function (a, b) { return wardRank(a.ward) - wardRank(b.ward) || a.name.localeCompare(b.name, "ja"); });
+    sorted.forEach(function (item, i) { item.el.style.order = i; });
+  }
+
+  document.querySelectorAll(".filter-group").forEach(function (group) {
+    var key = group.dataset.group;
+    group.querySelectorAll(".chip").forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        group.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("is-active"); });
+        chip.classList.add("is-active");
+        state[key] = chip.dataset.value;
+        applyFilters();
+      });
+    });
+  });
+
+  document.getElementById("rainOnly").addEventListener("change", function (e) {
+    state.rainOnly = e.target.checked;
+    applyFilters();
+  });
+  document.getElementById("searchInput").addEventListener("input", function (e) {
+    state.query = e.target.value;
+    applyFilters();
+  });
+  document.getElementById("sortSelect").addEventListener("change", function (e) {
+    applySort(e.target.value);
+  });
+
+  listEl.style.display = "flex";
+  listEl.style.flexDirection = "column";
+  applySort("price");
+  applyFilters();
 </script>
+
 </body>
 </html>
